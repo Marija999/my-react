@@ -1,26 +1,29 @@
 import "./Expenses.css";
 import ExpenseItem from "../ExpenseItem/ExpenseItem";
 import Card from "../../UI/Card";
+import ExpensesFilter from "../ExpenseFilter/ExpenseFilter";
 
-const Expenses = (data) => {
+const Expenses = (items) => {
+  console.log(items);
+  const yearChangeHandler = (changerYear) => {
+    console.log(changerYear);
+  };
   return (
-    <Card className="expenses">
-      <ExpenseItem
-        title={data.items[0].title}
-        amount={data.items[0].amount}
-        date={data.items[0].date}
-      ></ExpenseItem>
-      <ExpenseItem
-        title={data.items[1].title}
-        amount={data.items[1].amount}
-        date={data.items[1].date}
-      ></ExpenseItem>
-      <ExpenseItem
-        title={data.items[2].title}
-        amount={data.items[2].amount}
-        date={data.items[2].date}
-      ></ExpenseItem>
-    </Card>
+    <div>
+      <ExpensesFilter onYearChange={yearChangeHandler} />
+      <Card
+        className="expenses"
+        onCreate={() => {
+          for (var i = 0; i < items.items.length; i++) {
+            <ExpenseItem
+              title={items.items[i].title}
+              amount={items.items[i].amount}
+              date={items.items[i].date}
+            ></ExpenseItem>;
+          }
+        }}
+      ></Card>
+    </div>
   );
 };
 
