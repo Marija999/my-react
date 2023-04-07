@@ -1,28 +1,50 @@
 import "./Expenses.css";
 import ExpenseItem from "../ExpenseItem/ExpenseItem";
 import Card from "../../UI/Card";
+import React, { useState } from "react";
 import ExpensesFilter from "../ExpenseFilter/ExpenseFilter";
 
-const Expenses = (items) => {
-  console.log(items);
-  const yearChangeHandler = (changerYear) => {
-    console.log(changerYear);
+const Expenses = (data) => {
+  console.log(data);
+  const [selectedValue, setSelectedValue] = useState("2023");
+  const yearChangeHandler = (changedYear) => {
+    setSelectedValue(changedYear);
+    console.log(changedYear);
   };
+  // const expenseItems = [];
+  // const createNewExpense = () => {
+  //   for (var i = 0; i < data.items.length; i++) {
+  //     expenseItems.push(
+  //       <ExpenseItem
+  //         title={data.items[i].title}
+  //         amount={data.items[i].amount}
+  //         date={data.items[i].date}
+  //       ></ExpenseItem>
+  //     );
+  //   }
+  //   console.log(expenseItems);
+  //   return expenseItems;
+  // };
   return (
     <div>
-      <ExpensesFilter onYearChange={yearChangeHandler} />
-      <Card
-        className="expenses"
-        onCreate={() => {
-          for (var i = 0; i < items.items.length; i++) {
+      <Card className="expenses">
+        <ExpensesFilter
+          selected={selectedValue}
+          onYearChange={yearChangeHandler}
+        />
+        {data.items
+          .filter(
+            (expense) => expense.date.getFullYear().toString() === selectedValue
+          )
+          .map((filteredExpense) => (
             <ExpenseItem
-              title={items.items[i].title}
-              amount={items.items[i].amount}
-              date={items.items[i].date}
-            ></ExpenseItem>;
-          }
-        }}
-      ></Card>
+              key={filteredExpense.id}
+              title={filteredExpense.title}
+              amount={filteredExpense.amount}
+              date={filteredExpense.date}
+            ></ExpenseItem>
+          ))}
+      </Card>
     </div>
   );
 };
