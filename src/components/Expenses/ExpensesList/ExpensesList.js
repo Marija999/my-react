@@ -17,9 +17,9 @@ const ExpensesList = (data) =>{
         ));    
     }
     return (
-        <ul className='expenses=list'>
+        <div className='expenses-list'>
             {listContent}
-        </ul>
+        </div>
     );
 }
 
