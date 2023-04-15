@@ -44,6 +44,10 @@ const ExpenseForm = (data) => {
     setEnteredDate("");
   };
 
+  const closeFormHandler = () =>{
+    data.onCancel();
+  }
+
   return (
     <form onSubmit={submitHandler}>
       <div className="new-expense__controls">
@@ -76,6 +80,7 @@ const ExpenseForm = (data) => {
       </div>
       <div className="new-expense__actions">
         <button type="submit">Add Expense</button>
+        <button onClick={closeFormHandler}>Cancel</button>
       </div>
     </form>
   );

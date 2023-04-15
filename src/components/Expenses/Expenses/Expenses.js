@@ -1,30 +1,22 @@
 import "./Expenses.css";
-import ExpenseItem from "../ExpenseItem/ExpenseItem";
 import Card from "../../UI/Card";
 import React, { useState } from "react";
 import ExpensesFilter from "../ExpenseFilter/ExpenseFilter";
+import ExpensesList from "../ExpensesList/ExpensesList";
 
 const Expenses = (data) => {
+
   console.log(data);
   const [selectedValue, setSelectedValue] = useState("2023");
+  
+
+  const filteredValue = data.items.filter((expense) => {
+    return expense.date.getFullYear().toString() === selectedValue
+  });
+
   const yearChangeHandler = (changedYear) => {
     setSelectedValue(changedYear);
-    console.log(changedYear);
-  };
-  // const expenseItems = [];
-  // const createNewExpense = () => {
-  //   for (var i = 0; i < data.items.length; i++) {
-  //     expenseItems.push(
-  //       <ExpenseItem
-  //         title={data.items[i].title}
-  //         amount={data.items[i].amount}
-  //         date={data.items[i].date}
-  //       ></ExpenseItem>
-  //     );
-  //   }
-  //   console.log(expenseItems);
-  //   return expenseItems;
-  // };
+  }; 
   return (
     <div>
       <Card className="expenses">
@@ -32,18 +24,7 @@ const Expenses = (data) => {
           selected={selectedValue}
           onYearChange={yearChangeHandler}
         />
-        {data.items
-          .filter(
-            (expense) => expense.date.getFullYear().toString() === selectedValue
-          )
-          .map((filteredExpense) => (
-            <ExpenseItem
-              key={filteredExpense.id}
-              title={filteredExpense.title}
-              amount={filteredExpense.amount}
-              date={filteredExpense.date}
-            ></ExpenseItem>
-          ))}
+        <ExpensesList filteredList = {filteredValue}></ExpensesList>
       </Card>
     </div>
   );

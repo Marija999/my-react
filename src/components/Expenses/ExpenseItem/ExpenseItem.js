@@ -1,7 +1,7 @@
 import "./ExpenseItem.css";
 import Card from "../../UI/Card";
 import ExpenseDate from "../ExpenseDate/ExpenseDate";
-import React, { useState } from "react";
+import React from "react";
 
 const ExpenseItem = (data) => {
   return (
